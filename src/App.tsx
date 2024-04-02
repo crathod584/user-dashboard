@@ -1,23 +1,3 @@
-// import { useState } from 'react'
-// import './App.css'
-// import { Box } from '@mui/material'
-// import Navigation from './routes/Navigation'
-
-// function App() {
-
-//   return (
-//     <>
-//         <Box sx={{ display: "flex", flexDirection: "column", minWidth: "100%", minHeight: "100%" }}>
-//           <Navigation />
-//         </Box>
-//     </>
-//   )
-// }
-
-// export default App
-
-
-
 // App.tsx
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
