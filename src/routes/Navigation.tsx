@@ -9,7 +9,6 @@ const Navigation = observer(() => {
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<UserTableContainer />} />
-          {/* Other routes can be added here */}
         </Route>
       </Routes>
     </Router>
