@@ -23,7 +23,7 @@ const initialState: UserState = {
 
 const userReducer = (state = initialState, action: any): UserState => {
   switch (action.type) {
-    case FETCH_USERS_REQUEST:
+    case START_LOADING:
       return {
         ...state,
         loading: true,
@@ -44,16 +44,19 @@ const userReducer = (state = initialState, action: any): UserState => {
     case ADD_USER:
       return {
         ...state,
+        loading: false,
         users: [...state.users, action.payload],
       };
     case DELETE_USER:
       return {
         ...state,
+        loading: false,
         users: state.users.filter((user) => user.id !== action.payload),
       };
     case UPDATE_USER_LOCATION:
       return {
         ...state,
+        loading: false,
         users: state.users.map((user) =>
           user.id === action.payload.id ? { ...user, location: action.payload.location } : user
         ),
