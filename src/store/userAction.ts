@@ -21,9 +21,23 @@ export const addUser = (newUser: User) => {
 };
 
 export const deleteUser = (id: string) => {
-  return { type: DELETE_USER, payload: id };
+    return async (dispatch: Dispatch) => {
+        try {
+            await axios.delete(`https://660160fd87c91a11641ab523.mockapi.io/user/${id}`);
+            dispatch({ type: DELETE_USER, payload: id });
+        } catch (error) {
+            dispatch({ type: FETCH_USERS_FAILURE, payload: error.message });
+        }
+    };
 };
 
-export const updateUserLocation = (id: string, location: string) => {
-  return { type: UPDATE_USER_LOCATION, payload: { id, location } };
+export const updateUserLocation = (updatedUser: User) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const response = await axios.put(`https://660160fd87c91a11641ab523.mockapi.io/users/${updatedUser.id}`, updatedUser);
+            dispatch({ type: UPDATE_USER_LOCATION, payload: updatedUser });
+        } catch (error) {
+            dispatch({ type: FETCH_USERS_FAILURE, payload: error.message });
+        }
+    };
 };
