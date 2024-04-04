@@ -44,7 +44,7 @@ const userReducer = (state = initialState, action: any): UserState => {
       return {
         ...state,
         loading: false,
-        users: [...state.users, action.payload],
+        users: [action.payload, ...state.users],
       };
     case DELETE_USER:
       return {

@@ -26,7 +26,18 @@ export const fetchUsers = () => {
 };
 
 export const addUser = (newUser: User) => {
-  return { type: ADD_USER, payload: newUser };
+  return async (dispatch: Dispatch) => {
+    dispatch({ type: START_LOADING });
+    try {
+      await axios.post(
+        `https://660160fd87c91a11641ab523.mockapi.io/users`,
+        newUser,
+      );
+      dispatch({ type: ADD_USER, payload: newUser });
+    } catch (error) {
+      dispatch({ type: FETCH_USERS_FAILURE, payload: error.message });
+    }
+  };
 };
 
 export const deleteUser = (id: string) => {
@@ -34,7 +45,7 @@ export const deleteUser = (id: string) => {
     dispatch({ type: START_LOADING });
     try {
       await axios.delete(
-        `https://660160fd87c91a11641ab523.mockapi.io/user/${id}`,
+        `https://660160fd87c91a11641ab523.mockapi.io/users/${id}`,
       );
       dispatch({ type: DELETE_USER, payload: id });
     } catch (error) {
