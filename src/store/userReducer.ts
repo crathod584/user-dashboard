@@ -1,13 +1,12 @@
-
 import {
   User,
-  FETCH_USERS_REQUEST,
+  START_LOADING,
   FETCH_USERS_SUCCESS,
   FETCH_USERS_FAILURE,
   ADD_USER,
   DELETE_USER,
   UPDATE_USER_LOCATION,
-} from '../utils/types';
+} from "../utils/types";
 
 interface UserState {
   users: User[];
@@ -58,7 +57,9 @@ const userReducer = (state = initialState, action: any): UserState => {
         ...state,
         loading: false,
         users: state.users.map((user) =>
-          user.id === action.payload.id ? { ...user, location: action.payload.location } : user
+          user.id === action.payload.id
+            ? { ...user, location: action.payload.location }
+            : user,
         ),
       };
     default:
