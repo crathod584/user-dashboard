@@ -29,11 +29,11 @@ export const addUser = (newUser: User) => {
   return async (dispatch: Dispatch) => {
     dispatch({ type: START_LOADING });
     try {
-      await axios.post(
+      const response = await axios.post(
         `https://660160fd87c91a11641ab523.mockapi.io/users`,
         newUser,
       );
-      dispatch({ type: ADD_USER, payload: newUser });
+      dispatch({ type: ADD_USER, payload: response.data });
     } catch (error) {
       dispatch({ type: FETCH_USERS_FAILURE, payload: error.message });
     }
