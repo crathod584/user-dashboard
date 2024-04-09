@@ -1,5 +1,6 @@
 // UserTableRow.tsx
 import React from "react";
+import { SelectChangeEvent } from "@mui/material/Select";
 import { TableRow, TableCell, Select, MenuItem, Button } from "@mui/material";
 import { User } from "../../utils/types";
 const locations = [
@@ -24,7 +25,7 @@ const UserTableRow: React.FC<UserTableRowProps> = ({
   onDelete,
   onLocationChange,
 }) => {
-  const handleLocationChange = (e: React.ChangeEvent<{ value: unknown }>) => {
+  const handleLocationChange = (e: SelectChangeEvent<string>) => {
     onLocationChange(user.id, e.target.value as string);
   };
 
@@ -32,7 +33,7 @@ const UserTableRow: React.FC<UserTableRowProps> = ({
     <TableRow>
       <TableCell>{user.name}</TableCell>
       <TableCell>{user.hobby}</TableCell>
-      <TableCell>{Date(user.createdAt)}</TableCell>
+      <TableCell>{user.createdAt}</TableCell>
       <TableCell>
         <Select value={user.location} onChange={handleLocationChange}>
           {locations.map((location) => (

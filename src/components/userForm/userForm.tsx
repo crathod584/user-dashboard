@@ -1,6 +1,6 @@
-// UserForm.tsx
 import React, { useState } from "react";
-import { TextField, Select, MenuItem, Button } from "@mui/material";
+import { SelectChangeEvent } from "@mui/material/Select";
+import { TextField, Select, MenuItem, Button, InputLabel } from "@mui/material";
 import { User } from "../../utils/types";
 const locations = [
   "ABU DHABI",
@@ -22,45 +22,49 @@ const UserForm: React.FC<UserFormProps> = ({ onSubmit }) => {
     id: "",
     name: "",
     hobby: "",
-    creationDate: "",
+    createdAt: "",
     location: "",
   });
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | { name?: string; value: unknown }>,
-  ) => {
-    const { name, value } = e.target;
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setNewUser({ ...newUser, [name as string]: value as string });
+  };
+
+  const handleSelectChange = (event: SelectChangeEvent<string>) => {
+    const { name, value } = event.target;
     setNewUser({ ...newUser, [name as string]: value as string });
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSubmit(newUser);
-    setNewUser({ id: "", name: "", hobby: "", creationDate: "", location: "" });
+    setNewUser({ id: "", name: "", hobby: "", createdAt: "", location: "" });
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      <InputLabel htmlFor="name">Name</InputLabel>
       <TextField
+        id="name"
         name="name"
-        label="Name"
         value={newUser.name}
         onChange={handleInputChange}
         required
       />
+      <InputLabel htmlFor="hobby">Hobby</InputLabel>
       <TextField
+        id="hobby"
         name="hobby"
-        label="Hobby"
         value={newUser.hobby}
         onChange={handleInputChange}
         required
       />
       <Select
-        label="Select Location"
+        id="location"
         name="location"
         value={newUser.location}
-        onChange={handleInputChange}
-        required
+        onChange={handleSelectChange}
       >
         {locations.map((location) => (
           <MenuItem key={location} value={location}>

@@ -1,5 +1,5 @@
 // userActions.ts
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { Dispatch } from "redux";
 import {
   ADD_USER,
@@ -20,7 +20,10 @@ export const fetchUsers = () => {
       );
       dispatch({ type: FETCH_USERS_SUCCESS, payload: response.data });
     } catch (error) {
-      dispatch({ type: FETCH_USERS_FAILURE, payload: error.message });
+      dispatch({
+        type: FETCH_USERS_FAILURE,
+        payload: (error as AxiosError).message,
+      });
     }
   };
 };
@@ -35,7 +38,10 @@ export const addUser = (newUser: User) => {
       );
       dispatch({ type: ADD_USER, payload: response.data });
     } catch (error) {
-      dispatch({ type: FETCH_USERS_FAILURE, payload: error.message });
+      dispatch({
+        type: FETCH_USERS_FAILURE,
+        payload: (error as AxiosError).message,
+      });
     }
   };
 };
@@ -49,7 +55,10 @@ export const deleteUser = (id: string) => {
       );
       dispatch({ type: DELETE_USER, payload: id });
     } catch (error) {
-      dispatch({ type: FETCH_USERS_FAILURE, payload: error.message });
+      dispatch({
+        type: FETCH_USERS_FAILURE,
+        payload: (error as AxiosError).message,
+      });
     }
   };
 };
@@ -64,7 +73,10 @@ export const updateUserLocation = (id: string, location: string) => {
       );
       dispatch({ type: UPDATE_USER_LOCATION, payload: response.data });
     } catch (error) {
-      dispatch({ type: FETCH_USERS_FAILURE, payload: error.message });
+      dispatch({
+        type: FETCH_USERS_FAILURE,
+        payload: (error as AxiosError).message,
+      });
     }
   };
 };
